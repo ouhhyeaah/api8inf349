@@ -1,0 +1,8 @@
+flask == 3.0.2
+peewee == 3.17.1
+pg8000 == 1.31.1
+click == 8.1.7
+rq == 1.16.1
+python-dotenv == 1.0.1
+psycopg2-binary == 2.9.9
+requests == 2.31.0

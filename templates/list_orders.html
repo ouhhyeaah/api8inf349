@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Liste des produits</title>
+    </head>
+    <body>
+        {% include 'Components/navbar.html' %}
+        <h1
+            class="text-secondary container-xl d-flex justify-content-center mt-5"
+        >
+            Liste des commandes passées
+        </h1>
+        <div class="row container-xl mx-auto d-flex justify-content-center">
+            {% for order in orders %}
+            <div class="card m-2" style="width: 18rem">
+                <div class="card-body">
+                    <h5 class="card-title">Commande n°{{ order.id }}</h5>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse_@{{ order.id }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse_@{{ order.id }}"
+                                >
+                                    Produits
+                                </button>
+                            </h2>
+                            <div
+                                id="collapse_@{{ order.id }}"
+                                class="accordion-collapse collapse"
+                            >
+                                <div class="accordion-body">
+                                    <strong
+                                        >Liste des produits de la commande n° {{
+                                        order.id }}.</strong
+                                    >
+                                    <ul>
+                                        {% for product in order.product %}
+                                        <li>
+                                            Produit : {{ product.id }} <br />
+                                            Quantité : {{ product.quantity }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text mt-3">
+                        Prix total : {{ order.total_price }}$
+                    </p>
+                    <p class="card-text">
+                        Expédition : {{ order.shipping_price }}$
+                    </p>
+                    {% if order.paid %}
+                    <p class="card-text">
+                        Paid :
+                        <i data-lucide="check" class="text-success"></i>
+                    </p>
+                    {% else %}
+                    <p class="card-text">
+                        Paid : <i data-lucide="x" class="text-danger"></i>
+                    </p>
+                    {% endif %}
+                    <div class="d-flex justify-content-center">
+                        <a href="/order/{{ order.id }}" class="btn btn-primary"
+                            >Voir <i data-lucide="eye"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a
+                            class="btn btn-success mt-2"
+                            href="http://localhost:5000/order/{{ order.id }}/complete"
+                        >
+                            Complete order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+
+<script src="/static/js/app.js"></script>
+<script>
+    lucide.createIcons();
+</script>

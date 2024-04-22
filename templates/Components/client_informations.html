@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_@{{ order.id+1 }}"
+                aria-expanded="false"
+                aria-controls="collapse_@{{ order.id+1 }}"
+                id="client-informations-button"
+            >
+                Client Informations
+                <i class="mx-4" data-lucide="contact"></i>
+            </button>
+        </h2>
+        <div
+            id="collapse_@{{ order.id+1 }}"
+            class="accordion-collapse collapse"
+        >
+            <div class="accordion-body">
+                <strong> Client informations</strong>
+                <form
+                    class="needs-validation"
+                    id="client-informations"
+                    novalidate
+                >
+                    <div class="my-3">
+                        <div class="mb-3">
+                            <label for="validationCustom01" class="form-label"
+                                >E-mail</label
+                            >
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                placeholder="Enter your email"
+                                value="{{ order.email }}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">
+                                Please enter a valid email
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationCustom02" class="form-label"
+                                >Address</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="product_quantity"
+                                placeholder="Enter your address"
+                                value="{{ order.shipping_information.address }}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationCustom03" class="form-label"
+                                >City</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="city"
+                                placeholder="Enter your city"
+                                value="{{ order.shipping_information.city }}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationCustom04" class="form-label"
+                                >Postal Code / ZIP</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="postal_code"
+                                placeholder="Enter your postal code / ZIP"
+                                pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]"
+                                value="{{ order.shipping_information.postal_code }}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">
+                                Please enter a valid postal code format A0A 0A0
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationCustom04" class="form-label"
+                                >Province</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="province"
+                                placeholder="Enter your province"
+                                value="{{ order.shipping_information.province }}"
+                                pattern="[A-Za-z]{2}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">
+                                Please enter a valid province format XX
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationCustom05" class="form-label"
+                                >Country</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="country"
+                                placeholder="Enter your country"
+                                value="{{ order.shipping_information.country }}"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 mt-4 d-flex justify-content-around"
+                        id="btns"
+                    >
+                        {% if order.email %}
+                        <button type="submit" class="btn btn-success w-100">
+                            Change informations <i data-lucide="pen"></i>
+                        </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                            <i data-lucide="check"></i>
+                        </button>
+                        {% endif %}
+                    </div>
+                </form>
+                <span id="res"></span>
+            </div>
+        </div>
+    </div>
+</html>
+<script>
+    lucide.createIcons();
+</script>
+<script src="/static/js/complete_order.js"></script>

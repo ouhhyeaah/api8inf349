@@ -1,0 +1,134 @@
+<div class="accordion-item">
+    <h2 class="accordion-header">
+        <button
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse_@{{ order.id+2 }}"
+            aria-expanded="false"
+            aria-controls="collapse_@{{ order.id+2 }}"
+            {%
+            if
+            order.email
+            %}
+            class="accordion-button collapsed"
+            {%
+            else
+            %}
+            disabled
+            class="accordion-button collapsed bg-dark-subtle"
+            {%
+            endif
+            %}
+        >
+            Payment
+            <i class="mx-4" data-lucide="credit-card"></i>
+        </button>
+    </h2>
+    <div id="collapse_@{{ order.id+2 }}" class="accordion-collapse collapse">
+        <div class="accordion-body">
+            <strong>Payment</strong>
+            <form class="needs-validation" id="payment-informations" novalidate>
+                <div class="my-3">
+                    <div class="mb-3">
+                        <label for="validationCustom01" class="form-label"
+                            >Name</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            placeholder="Enter your name"
+                            value="{{ order.credit_card.name }}"
+                            required
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">
+                            Please enter a valid name
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="validationCustom02" class="form-label"
+                            >Credit Card Number</label
+                        >
+                        {% if order.credit_card.first_digits %}
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="credit_card_number"
+                            placeholder="{{ order.credit_card.first_digits }} **** **** {{ order.credit_card.last_digits }}"
+                            maxlength="19"
+                            pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
+                            required
+                        />
+                        {% else %}
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="number"
+                            placeholder="Enter your credit card number"
+                            maxlength="19"
+                            pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
+                            required
+                        />
+                        {% endif %}
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">
+                            Enter a valid credit card number
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="validationCustom04" class="form-label"
+                            >CVV</label
+                        >
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="cvv"
+                            placeholder="Enter your CVV"
+                            maxlength="3"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            required
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">
+                            Please enter a valid CVV format 123
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="validationCustom04" class="form-label"
+                            >Expiration Date</label
+                        >
+
+                        <input
+                            type="month"
+                            class="form-control"
+                            id="expiration_date"
+                            placeholder="Enter your expiration month"
+                            value="2024-12"
+                            required
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">
+                            Please enter a valid expiration date
+                        </div>
+                    </div>
+                    {% if order.paid == True %}
+                    <button
+                        type="submit"
+                        class="btn btn-success w-100"
+                        disabled
+                    >
+                        Already Paid <i data-lucide="check"></i>
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary">
+                        Pay
+                        <i data-lucide="credit-card"></i>
+                    </button>
+                    {% endif %}
+                </div>
+            </form>
+            <span id="res"></span>
+        </div>
+    </div>
+</div>

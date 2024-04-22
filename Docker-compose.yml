@@ -1,0 +1,27 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: api8inf349
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+    networks:
+      - api8inf349
+  redis:
+    image: redis:5
+    ports:
+      - "6379:6379"
+    networks:
+      - api8inf349
+
+volumes:
+  postgres_data:
+
+networks:
+  api8inf349:
+    driver: bridge

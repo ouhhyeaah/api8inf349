@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des produits</title>
+</head>
+<body>
+    {% include 'Components/navbar.html' %}
+        <h1 class="text-secondary container-xl d-flex justify-content-center mt-5">List of the products in the database</h1>
+            <div class="row container-xl mx-auto d-flex justify-content-center">
+        {% for product in products %}
+            <div class="card m-2" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"> {{ product.name }} </h5>
+                <p class="card-text"> {{ product.description }} </p>
+              </div>
+                {% if product.in_stock %}
+                <span class="badge rounded-pill text-bg-success mx-auto my-4" style="width: 50%;">In Stock <i data-lucide="check"></i>  </span>
+                  <form>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Quantity</span>
+                            </div>
+                            <input type="number" class="form-control quantity" name="quantity" min="1" max="10" required>
+                        </div>
+                        <div class="text-danger error-message"></div> <!-- Message d'erreur pour le produit -->
+                      </li>
+                    </ul>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                      <button type="button" data-product-id={{product.id}} class="btn btn-primary mt-3 add_to_cart">Add to cart <i data-lucide="shopping-cart"></i> </button>
+                    </div>
+                  </form>
+                {% else %}
+                <span class="badge rounded-pill text-bg-danger mx-auto " style="width: 50%; translate: 0 -100%;">Unavailable <i data-lucide="ban"></i></span>
+                {% endif %}
+                <span class="text-secondary fst-italic" style="width: 100%; translate: 85% 0;"> ID: {{ product.id }}  </span>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="/static/js/app.js"></script>
+<script>
+    lucide.createIcons();
+</script>

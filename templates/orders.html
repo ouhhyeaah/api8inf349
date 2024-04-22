@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Orders</title>
+    </head>
+    <body>
+        {% include 'Components/navbar.html' %}
+        <div class="d-flex mt-5 mx-5">
+            <div class="container-sm">
+                <h1>Order a product</h1>
+                <form class="needs-validation" id="form" novalidate>
+                    <div class="d-flex justify-content-center my-3 product">
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label"
+                                >Product ID</label
+                            >
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="product_id"
+                                placeholder="Enter the product ID"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom02" class="form-label"
+                                >Quantity</label
+                            >
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="product_quantity"
+                                placeholder="Enter the quantity"
+                                required
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 mt-4 d-flex justify-content-around"
+                        id="btns"
+                    >
+                        <button
+                            class="btn btn-success"
+                            type="button"
+                            id="addProductBtn"
+                        >
+                            Add Product
+                            <i data-lucide="plus"></i>
+                        </button>
+
+                        <button class="btn btn-primary" type="submit">
+                            Order
+                            <i data-lucide="shopping-cart"></i>
+                        </button>
+                    </div>
+                </form>
+                <span id="res"></span>
+            </div>
+            <div
+                class="container-fluid overflow-auto border"
+                style="height: 50vh"
+            >
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %} {% if product.in_stock %}
+                        <tr class="table-primary">
+                            <td>{{ product.id }}</td>
+
+                            <td>{{ product.name }}</td>
+
+                            <td class="text-success">${{ product.price }}</td>
+                        </tr>
+                        {% else %}
+                        <tr class="table-danger">
+                            <td>{{ product.id }}</td>
+
+                            <td>{{ product.name }}</td>
+
+                            <td class="text-danger">Out of stock</td>
+                        </tr>
+                        {% endif %} {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+    <script src="/static/js/order.js"></script>
+</html>
+
+<script>
+    lucide.createIcons();
+</script>
