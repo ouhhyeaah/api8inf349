@@ -21,9 +21,13 @@
                                 class="form-control"
                                 id="product_id"
                                 placeholder="Enter the product ID"
+                                min="1"
+                                max="50"
                                 required
                             />
                             <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Enter an ID between 1 and 50!</div>
+
                         </div>
                         <div class="col-md-4">
                             <label for="validationCustom02" class="form-label"
@@ -34,9 +38,12 @@
                                 class="form-control"
                                 id="product_quantity"
                                 placeholder="Enter the quantity"
+                                min="1"
+                                max="9"
                                 required
                             />
                             <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Enter a quantity between 1 and 9!</div>
                         </div>
                     </div>
                     <div

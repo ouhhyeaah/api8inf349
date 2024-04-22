@@ -95,14 +95,16 @@ def order():
     req = request.json
     if "products" in req:
         is_valid, error = helpers.order_is_valid(req["products"])
+        if not is_valid:
+            return jsonify(errors=error), 422
         id = db.add_order_in_db(req["products"])
     elif "product" in req:
         is_valid, error = helpers.order_is_valid(req["product"])
+        if not is_valid:
+            return jsonify(errors=error), 422
         id = db.add_order_in_db(req["product"])
     else:
         return jsonify("Aucun produit n'a été trouvé..."), 404
-    if is_valid == False:
-        return jsonify(errors=error), 422
 
     return redirect("/order/" + str(id))
 

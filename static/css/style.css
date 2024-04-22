@@ -1,0 +1,17 @@
+.card {
+    width: 300px;
+    min-width: 100px;
+    min-height: 300px;
+    height: 400px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all ease-in-out 0.4s;
+}
+.card:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    transition: all 0.4s;
+}
