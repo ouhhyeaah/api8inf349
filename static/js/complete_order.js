@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   function complete_payment() {
     const inputs = Array.from(document.querySelectorAll("input")).slice(6, 10);
-    const RES = document.getElementById("res");
+    const RES = document.getElementById("payment_res");
     const isAnyInputEmpty = Array.from(inputs).some(
       (input) => input.value.trim() === "",
     );
@@ -84,12 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
       cvv: inputs[2].value,
       expiration_month: expiration_month,
     };
-    console.log(credit_card_content);
 
     // VALID CARD
     // 4242 4242 4242 4242
     // INVALID CARD
     // 4000 0000 0000 0002
+    const btn = document.getElementById("payment_btn");
     fetch(`/order/${ORDER_ID}`, {
       method: "PUT",
       headers: {
@@ -99,18 +99,22 @@ document.addEventListener("DOMContentLoaded", function () {
         credit_card: credit_card_content,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        // Parse the JSON response
+        return res.json();
+      })
       .then((data) => {
         if (data.order) {
           RES.innerText = "Your order has been completed";
           RES.classList = "text-success fw-bold mx-auto w-100";
           btn.classList.add("bg-success", "bg-gradient");
         } else {
-          RES.innerText = data.errrors;
+          RES.innerText = data.credit_card.name;
+          RES.classList = "text-danger fw-bold mx-auto w-100";
         }
       });
   }
-  const creditCardInput = document.getElementById("credit_card_number");
+  var creditCardInput = document.getElementById("credit_card_number");
   creditCardInput.addEventListener("input", function (event) {
     let trimmedValue = event.target.value.replace(/\s+/g, ""); // Supprimer les espaces existants
     let formattedValue = "";
@@ -122,7 +126,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     event.target.value = formattedValue.trim(); // Supprimer les espaces en trop à la fin
   });
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 });

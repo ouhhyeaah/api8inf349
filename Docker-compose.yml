@@ -21,7 +21,6 @@ services:
 
 volumes:
   postgres_data:
-
 networks:
   api8inf349:
     driver: bridge

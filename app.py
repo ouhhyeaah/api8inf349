@@ -182,14 +182,11 @@ def pay_order(order_id: int, credit_card: dict):
             422,
         )
     else:
+
         return (
             jsonify({"order": helpers.format_order(db.get_order_by_id(order_id))}),
             200,
         )
-
-
-def put_credit_card_info(order_id, credit_card):
-    return jsonify(helpers.check_credit_card(credit_card, order_id))
 
 
 ## Routes pour l'interface Web ;
@@ -225,4 +222,7 @@ def complete_order(order_id):
 
 
 if __name__ == "__main__":
+    print(
+        "**** Ne pas oublier de lancer le worker avec la commande 'flask worker' dans un autre terminal ****".upper()
+    )
     app.run(host="0.0.0.0", port=5000, debug=True)

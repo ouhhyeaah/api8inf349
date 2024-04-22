@@ -64,7 +64,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            id="number"
+                            id="credit_card_number"
                             placeholder="Enter your credit card number"
                             maxlength="19"
                             pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
@@ -121,14 +121,15 @@
                         Already Paid <i data-lucide="check"></i>
                     </button>
                     {% else %}
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" id="payment_btn" class="btn btn-primary">
                         Pay
                         <i data-lucide="credit-card"></i>
                     </button>
                     {% endif %}
+                    <span id="payment_res">
+                    </span>
                 </div>
             </form>
-            <span id="res"></span>
         </div>
     </div>
 </div>

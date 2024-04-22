@@ -21,7 +21,11 @@ def process_payment(
 ) -> bool:
     if state:
         payment_queue.enqueue(
-            process_successfull_payment_task, order_id, credit_card, transaction, state
+            process_successfull_payment_task,
+            order_id,
+            credit_card,
+            transaction,
+            state,
         )
         time.sleep(2)  # Simuler un traitement de paiement de 2 secondes
         return True  # Retournez True si le paiement est réussi
@@ -39,6 +43,7 @@ def process_payment(
 def process_successfull_payment_task(
     order_id: int, credit_card: dict, transaction: dict, state: bool
 ) -> None:
+    print("Processing payment...")
     transaction["errors"] = {}
     db.put_credit_card_info(order_id, credit_card, transaction, True)
     cache_order(order_id, db.get_order_by_id(order_id))
