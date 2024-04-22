@@ -122,7 +122,6 @@ def check_credit_card(credit_card: dict, order_id: int):
     API = "http://dimprojetu.uqac.ca/~jgnault/shops/pay/"
     amount_charged = get_amount_charged(order_id)
     data = {"credit_card": credit_card, "amount_charged": amount_charged}
-
     response = requests.post(API, json=data).json()
     if "errors" in response:
         # payment_error(order_id, response, amount_charged)

@@ -9,19 +9,29 @@ from peewee import (
     BooleanField,
 )
 from playhouse.postgres_ext import JSONField
-import os
+import os, socket
 from dotenv import load_dotenv
 
 load_dotenv()
 
+
+def get_ip_from_dns_name(dns_name: str) -> str | None:
+    """Permet de fournir le nom du service dans la commande docker run, et de récupérer l'adresse IP associée."""
+    try:
+        ip = socket.gethostbyname(dns_name)
+        return ip
+    except:
+        return None
+
+
 # Configuration de la base de données PostgreSQL avec Peewee
-DATABASE = "api8inf349"
+
 pg_db = PostgresqlDatabase(
-    DATABASE,
+    os.getenv("DB_NAME"),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
+    host=get_ip_from_dns_name(os.getenv("DB_HOST", default="db")),
+    port=os.getenv("DB_PORT", default=5432),
 )
 
 
