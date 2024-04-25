@@ -155,3 +155,7 @@ def print_cache() -> None:
         value = db.get(key)
         if value is not None:
             print(bytes(value).decode("utf-8"))
+
+
+def print_queue() -> None:
+    db = redis_db()

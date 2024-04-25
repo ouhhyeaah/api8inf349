@@ -78,8 +78,14 @@ def check_queue(order_id) -> bool:
     return False
 
 
+def print_queue():
+    with Connection(conn):
+        queue = Queue("payment")
+        jobs = []
+
+
 def cache_order(order_id: int, order_data: Orders) -> None:
-    """Met une commande en cache pour 30 secondes. Utilisation de Redis"""
+    """Met une commande en cache pour 60 secondes. Utilisation de Redis"""
     db = redis_db()
-    # Met la commande en cache pour 30 secondes
-    db.set(f"order:{order_id}", json.dumps(helpers.format_order(order_data)), ex=30)
+    # Met la commande en cache pour 60 secondes
+    db.set(f"order:{order_id}", json.dumps(helpers.format_order(order_data)), ex=60)

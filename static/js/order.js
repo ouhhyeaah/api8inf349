@@ -24,19 +24,25 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((res) => res.json())
         .then((data) => {
           if (data.order) {
-            response_span.innerHTML =
-              "Order placed successfully, Order ID: " +
-              data.order.id +
-              "<a href='http://localhost:5000/order/" +
-              data.order.id +
-              "'>" +
-              dara.order.id +
-              "</a>";
-
+            const orderId = data.order.id;
+            const orderSuccessMessage = `
+              Order placed successfully, Order ID: ${orderId}
+              <a href='http://localhost:5000/order/${orderId}'>
+                </br> Lien vers la commande ${orderId}
+              </a>
+              </br>
+              <a href='http://localhost:5000/order/${orderId}/complete'>
+                </br> Compléter la commande ${orderId}
+              </a>
+            `;
+            response_span.innerHTML = orderSuccessMessage;
             response_span.style.color = "green";
           } else {
-            response_span.innerHTML =
-              data.errors.product.name || "Order failed";
+            const errorMessage =
+              data.errors && data.errors.product && data.errors.product.name
+                ? data.errors.product.name
+                : "Order failed";
+            response_span.innerHTML = errorMessage;
             response_span.style.color = "red";
           }
         });
@@ -59,26 +65,25 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((res) => res.json())
         .then((data) => {
           if (data.order) {
-            response_span.innerHTML =
-              "Order placed successfully, Order ID: " +
-              data.order.id +
-              "<a href='http://localhost:5000/order/" +
-              data.order.id +
-              "'>" +
-              "</br> Lien vers la commande " +
-              data.order.id +
-              "</a>" +
-              "</br>" +
-              "<a href = 'http://localhost:5000/order/" +
-              data.order.id +
-              "/complete'>" +
-              "</br> Completer la commande " +
-              data.order.id +
-              "</a>";
+            const orderId = data.order.id;
+            const orderSuccessMessage = `
+              Order placed successfully, Order ID: ${orderId}
+              <a href='http://localhost:5000/order/${orderId}'>
+                </br> Lien vers la commande ${orderId}
+              </a>
+              </br>
+              <a href='http://localhost:5000/order/${orderId}/complete'>
+                </br> Compléter la commande ${orderId}
+              </a>
+            `;
+            response_span.innerHTML = orderSuccessMessage;
             response_span.style.color = "green";
           } else {
-            response_span.innerHTML =
-              data.errors.product.name || "Order failed";
+            const errorMessage =
+              data.errors && data.errors.product && data.errors.product.name
+                ? data.errors.product.name
+                : "Order failed";
+            response_span.innerHTML = errorMessage;
             response_span.style.color = "red";
           }
         });
@@ -89,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Empêche la soumission du formulaire par défaut
     if (form.checkValidity()) {
-      // Vérifiez si les champs du formulaire sont valides
       order(); // Si les champs sont valides, appelez la fonction order()
     }
     form.classList.add("was-validated"); // Ajoutez la classe 'was-validated' pour afficher les messages d'erreur

@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const client_information_form = document.getElementById(
     "client-informations",
   );
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   function complete_informations() {
     const inputs = Array.from(document.querySelectorAll("input")).slice(0, 6);
     const RES = document.getElementById("res");

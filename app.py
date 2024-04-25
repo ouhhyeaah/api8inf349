@@ -73,6 +73,12 @@ def cache():
     return helpers.print_cache()
 
 
+@app.cli.command("print_queue")
+def print_queue():
+    """Print the queue"""
+    return helpers.print_queue()
+
+
 # Routes
 # GET /products
 @app.route("/", methods=["GET"])
